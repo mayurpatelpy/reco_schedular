@@ -81,10 +81,7 @@ class ScrapyScheduleManager:
             class_name = str(self.__class__.__name__)
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
                                                  str(exception_traceback.tb_lineno), exception_message,
-                                                 client_id=self.event.get("cid"),
-                                                 marketplace_id=self.event.get("mpid"),
-                                                 channel_id=self.event.get("mpid"),
-                                                 account_id=self.event.get("acid")
+                                                 filename="schedule_manager"
                                                  )
 
     def get_accounts_by_status(self, status):
@@ -139,10 +136,7 @@ class ScrapyScheduleManager:
             class_name = str(self.__class__.__name__)
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
                                                  str(exception_traceback.tb_lineno), exception_message,
-                                                 client_id=self.event.get("cid"),
-                                                 marketplace_id=self.event.get("mpid"),
-                                                 channel_id=self.event.get("mpid"),
-                                                 account_id=self.event.get("acid")
+                                                 filename="schedule_manager"
                                                  )
 
 class TypeMaster:

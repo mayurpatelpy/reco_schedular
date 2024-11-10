@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from celery import Celery
 from celery.schedules import crontab
 
-app = Celery('reco-client-backend-scrapy',include=['tasks'])
+app = Celery('reco-client-backend-scrapy',include=['tasks','schedule_tasks'])
 app.config_from_object("celeryconfig")
 app.conf.update(
     result_expires=3600,

@@ -1,0 +1,2 @@
+reco_mongodb @ git+https://github.com/mayurpatelpy/reco_mongodb.git@3cfcbae48129ec5d8eca4a3e3b90b33bc4943aae
+service_logger @ git+https://github.com/mayurpatelpy/service_logger.git@271d9c03d69b98149e3a7f469947031407e9056b

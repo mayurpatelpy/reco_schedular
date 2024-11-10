@@ -81,7 +81,6 @@ class ScrapyScheduleManager:
             class_name = str(self.__class__.__name__)
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
                                                  str(exception_traceback.tb_lineno), exception_message,
-                                                 job_id=self.event.get("_id"),
                                                  client_id=self.event.get("cid"),
                                                  marketplace_id=self.event.get("mpid"),
                                                  channel_id=self.event.get("mpid"),
@@ -140,7 +139,6 @@ class ScrapyScheduleManager:
             class_name = str(self.__class__.__name__)
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
                                                  str(exception_traceback.tb_lineno), exception_message,
-                                                 job_id=self.event.get("_id"),
                                                  client_id=self.event.get("cid"),
                                                  marketplace_id=self.event.get("mpid"),
                                                  channel_id=self.event.get("mpid"),

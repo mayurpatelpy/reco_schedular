@@ -29,7 +29,6 @@ class ScrapyScheduleManager:
                                                  )
     def schedule(self):
         ServiceLogger("scrapy_Engine").info(f"In schedule function", '--', "main.py", "status_finder")
-
         try:
             status = []
             lambda_function = None

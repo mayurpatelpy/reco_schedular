@@ -25,8 +25,7 @@ class ScrapyScheduleManager:
             filename = os.path.split(exception_traceback.tb_frame.f_code.co_filename)[1]
             class_name = str(self.__class__.__name__)
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
-                                                 str(exception_traceback.tb_lineno), exception_message
-                                                 )
+                                                 str(exception_traceback.tb_lineno), exception_message)
     def schedule(self):
         ServiceLogger("scrapy_Engine").info(f"In schedule function", '--', "main.py", "status_finder")
         try:

@@ -59,7 +59,7 @@ class DownloadScheduleManager:
                     object_id = report_details.get('_id')
                     job_config = list(
                         filter(lambda record: record['report_type'] == report_details['report_type'], report_conf))
-                    concurrency_flag = job_config[0].get('concurrency')
+                    # concurrency_flag = job_config[0].get('concurrency')
                     self.delay = job_config[0].get('delay_minuite')
                     report_details.update({"action": "Download"})
                     running_status = self.report_running_status(report_details)

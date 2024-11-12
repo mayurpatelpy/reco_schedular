@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: reco_schedular_worker
-    command: celery -A tasks worker --loglevel=info
+    command: celery -A celeryapp.app worker --loglevel=info
     networks:
       - reco_services
       - main-network
@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: reco_schedular_beat
-    command: celery -A schedule_tasks beat --loglevel=info
+    command: celery -A celeryapp.app beat --loglevel=info
     networks:
       - reco_services
       - main-network

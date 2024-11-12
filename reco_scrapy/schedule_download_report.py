@@ -313,8 +313,7 @@ class DownloadScheduleManager:
                     "$match": {
                         "cid": each_report.get("cid"),
                         "mpid": each_report.get("mpid"),
-                        "acid": each_report.get("acid"),
-                        "vendor": each_report.get("vendor")
+                        "acid": each_report.get("acid")
                     }
                 },
                 {"$project": {"login": 1}},

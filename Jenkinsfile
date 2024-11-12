@@ -21,9 +21,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    if [ -d /home/projects/reco_schedular ] && [ "$(ls -A /home/projects/reco_schedular)" ]; then
-                        rm -r /home/projects/reco_schedular/*
-                    fi
+                    rm -r /home/projects/reco_schedular/*
                     '''
                 }
             }

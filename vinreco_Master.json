@@ -144,7 +144,7 @@
    },
    {
       "marketplace":"Flipkart",
-      "report_type":"Active_Orders_Warehouse",
+      "report_type":"active_orders_warehouse",
       "report_action":"D",
       "report_status":"DD",
       "request":1,

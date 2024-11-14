@@ -4,6 +4,11 @@ from reco_scrapy.scrapy_schedule_manager import ScrapyScheduleManager
 
 
 
+
+@app.task()
+def scrapy_worker(batch):
+    print(batch)
+
 @app.task()
 def schedule_scrapy_worker(message):
     ServiceLogger("scrapy_Engine").info(f"In Tasks queue with message {message}", '--', "main.py", "Schedule_Download")

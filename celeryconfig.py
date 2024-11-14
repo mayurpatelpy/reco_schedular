@@ -20,17 +20,17 @@ beat_schedule = {
     'schedule-reco-scrapy-download-every-3-minute': {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/3'),
-        'args': (['DOWNLOAD'],)
+        'args': ('DOWNLOAD',)
     },
     'schedule-reco-scrapy-status-every-5-minute': {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/5'),
-        'args': (['STATUS'],)
+        'args': ('STATUS',)
     },
     'schedule-reco-scrapy-requests-every-5-minute': {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/5'),
-        'args': (['REQUEST'],)
+        'args': ('REQUEST',)
     }
 }
 

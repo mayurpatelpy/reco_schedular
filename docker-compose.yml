@@ -1,4 +1,13 @@
 services:
+  reco_schedular_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reco_schedular_worker
+    command: celery -A celeryapp.app worker --loglevel=info
+    networks:
+      - reco_services
+      - main-network
   reco_schedular_beat:
     build:
       context: .

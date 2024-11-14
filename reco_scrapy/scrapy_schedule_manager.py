@@ -15,9 +15,9 @@ class ScrapyScheduleManager:
         """
         try:
             self.db = MongoDBConnector(os.getenv("MONGODB_URL"), os.getenv("MONGODB_SCRAPY_NAME"))
-            self.DOWNLOAD_LAMBDA = DownloadScheduleManager
-            self.STATUS_LAMBDA = StatusScheduleManager
-            self.REQUEST_LAMBDA = RequestScheduleManager
+            # self.DOWNLOAD_LAMBDA = DownloadScheduleManager
+            # self.STATUS_LAMBDA = StatusScheduleManager
+            # self.REQUEST_LAMBDA = RequestScheduleManager
 
         except Exception as err:
             exception_message = str(err)
@@ -34,17 +34,17 @@ class ScrapyScheduleManager:
 
             if self.event == TypeMaster.request:
                 status = TypeStatusMapping.request
-                lambda_function = self.REQUEST_LAMBDA
+                lambda_function = RequestScheduleManager
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Request lambda function is invoked having status {status}", '--', "main.py", "status_finder")
 
             elif self.event == TypeMaster.status:
                 status = TypeStatusMapping.status
-                lambda_function = self.STATUS_LAMBDA
+                lambda_function = StatusScheduleManager
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Status lambda function is invoked having status {status}", '--', "main.py", "status_finder")
 
             elif self.event == TypeMaster.download:
                 status = TypeStatusMapping.download
-                lambda_function = self.DOWNLOAD_LAMBDA
+                lambda_function = DownloadScheduleManager
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Download lambda function is invoked having status {status}", '--', "main.py", "status_finder")
 
             else:

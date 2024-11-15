@@ -166,7 +166,7 @@
    },
    {
       "marketplace":"Flipkart",
-      "report_type":"Invoice_Order_Warehouse",
+      "report_type":"invoice_order_warehouse",
       "report_action":"D",
       "report_status":"DD",
       "request":0,

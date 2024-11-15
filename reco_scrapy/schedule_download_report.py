@@ -58,7 +58,7 @@ class DownloadScheduleManager:
                     report_details.update({"_id": str(report_details.get('_id'))})
                     object_id = report_details.get('_id')
                     ServiceLogger("scrapy_engine").info(f"Report Details Found ===> {report_details}")
-                    job_config = list(filter(lambda record: record['report_type'] == report_details['report_type'], report_conf))
+                    job_config = list(filter(lambda record: record['report_type'].lower() == report_details['report_type'].lower(), report_conf))
                     ServiceLogger("scrapy_engine").info(f"Found Job config is ===> {job_config[0]}")
                     # concurrency_flag = job_config[0].get('concurrency')
                     self.delay = job_config[0].get('delay_minuite')

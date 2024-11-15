@@ -168,10 +168,10 @@
       "marketplace":"Flipkart",
       "report_type":"Invoice_Order_Warehouse",
       "report_action":"D",
-      "report_status":"QQ",
-      "request":1,
+      "report_status":"DD",
+      "request":0,
       "status":0,
-      "download":0,
+      "download":1,
       "concurrency":1,
       "delay_minuite":5
    },

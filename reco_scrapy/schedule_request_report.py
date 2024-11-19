@@ -54,7 +54,7 @@ class RequestScheduleManager:
                 if report['report_type'] not in temp_list:
                     # print(report)
                     job_config = list(
-                        filter(lambda record: record['report_type'] == report['report_type'], report_conf))
+                        filter(lambda record: record['report_type'].lower() == report['report_type'].lower(), report_conf))
                     concurrency_flag = job_config[0].get('concurrency')
                     self.delay = job_config[0].get('delay_minuite')
                     if concurrency_flag == 0:

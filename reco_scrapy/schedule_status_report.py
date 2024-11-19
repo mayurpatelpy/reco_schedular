@@ -64,8 +64,8 @@ class StatusScheduleManager:
                     report_details.update({"action": "Status"})
                     if running_status != 1:
                         report_conf = self.report_configs()
-                        rtype = report_details['report_type']
-                        msg_config = list(filter(lambda record: record['report_type'] == rtype, report_conf))
+                        rtype = report_details['report_type'].lower()
+                        msg_config = list(filter(lambda record: record['report_type'].lower() == rtype, report_conf))
                         if msg_config:
                             msg_spider = msg_config[0].get('spider')
                             spider = {'spider_name': msg_spider}

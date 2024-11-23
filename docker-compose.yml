@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: reco_schedular_worker
     command: celery -A celeryapp.app worker --loglevel=info
+    network_mode: "host"
     networks:
       - reco_services
       - main-network
@@ -14,6 +15,7 @@ services:
       dockerfile: Dockerfile
     container_name: reco_schedular_beat
     command: celery -A celeryapp.app beat --loglevel=info
+    network_mode: "host"
     networks:
       - reco_services
       - main-network
@@ -23,7 +25,8 @@ services:
     ports:
       - "5555:5555"
     environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://default:i2am2b9329LmHlvxLVTaA@localhost:6379/0
+    network_mode: "host"
     networks:
       - reco_services
       - main-network

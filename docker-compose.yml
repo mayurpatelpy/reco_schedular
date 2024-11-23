@@ -5,32 +5,17 @@ services:
       dockerfile: Dockerfile
     container_name: reco_schedular_worker
     command: celery -A celeryapp.app worker --loglevel=info
-    networks:
-      - reco_services
-      - main-network
+    network_mode: "host"
   reco_schedular_beat:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: reco_schedular_beat
     command: celery -A celeryapp.app beat --loglevel=info
-    networks:
-      - reco_services
-      - main-network
+    network_mode: "host"
   flower:
     image: mher/flower:master
     container_name: flower
-    ports:
-      - "5555:5555"
     environment:
-      - CELERY_BROKER_URL=redis://default:i2am2b9329LmHlvxLVTaA@host.docker.internal:6379/0
-    networks:
-      - reco_services
-      - main-network
-networks:
-  reco_services:
-    driver: bridge
-    external: true
-  main-network:
-    driver: bridge
-    external: true
+      - CELERY_BROKER_URL=redis://default:i2am2b9329LmHlvxLVTaA@localhost:6379/0
+    network_mode: "host"

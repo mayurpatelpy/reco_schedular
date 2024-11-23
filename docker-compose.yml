@@ -9,7 +9,7 @@ services:
       - reco_services
       - main-network
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:172.17.0.1"
   reco_schedular_beat:
     build:
       context: .
@@ -20,7 +20,7 @@ services:
       - reco_services
       - main-network
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:172.17.0.1"
   flower:
     image: mher/flower:master
     container_name: flower
@@ -32,7 +32,7 @@ services:
       - reco_services
       - main-network
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:172.17.0.1"
 networks:
   reco_services:
     driver: bridge

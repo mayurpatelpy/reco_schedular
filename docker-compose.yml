@@ -27,7 +27,7 @@ services:
     ports:
       - "5555:5555"
     environment:
-      - CELERY_BROKER_URL=redis://default:i2am2b9329LmHlvxLVTaA@localhost:6379/0
+      - CELERY_BROKER_URL=redis://default:i2am2b9329LmHlvxLVTaA@host.docker.internal:6379/0
     networks:
       - reco_services
       - main-network

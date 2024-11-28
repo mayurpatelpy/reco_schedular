@@ -254,7 +254,7 @@
    },
    {
       "marketplace":"Flipkart",
-      "report_type":"Innvoice_Report",
+      "report_type":"Invoice_Report",
       "report_action":"RSD",
       "report_status":"QQ",
       "request":1,

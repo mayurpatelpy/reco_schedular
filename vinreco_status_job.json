@@ -87,8 +87,8 @@
    },
    {
       "marketplace":"Flipkart",
-      "report_type":"Innvoice_Report",
-      "spider":"Innvoice_Report_Status_Crawler"
+      "report_type":"Invoice_Report",
+      "spider":"Invoice_Report_Status_Crawler"
    },
    {
 

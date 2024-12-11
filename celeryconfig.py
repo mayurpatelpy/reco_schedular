@@ -31,6 +31,46 @@ beat_schedule = {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/5'),
         'args': ('REQUEST',)
+    },
+    'schedule-reco-amazon-daily-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute=31, hour=18),
+        'args': ('AMAZON',)
+    },
+    'schedule-reco-flipkart-daily-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute=31, hour=18,day_of_month='1-31/2'),
+        'args': ('FLIPKART',)
+    },
+    'schedule-reco-myntra-daily-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute=31, hour=18,day_of_month='2-31/2'),
+        'args': ('MYNTRA',)
+    },
+    'schedule-reco-amazon-daily-entry-fetching': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/5'),
+        'args': ('AMAZON_DAILY',)
+    },
+    'schedule-reco-flipkart-daily-entry-fetching': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/1'),
+        'args': ('FLIPKART_DAILY',)
+    },
+    'schedule-reco-myntra-daily-entry-fetching': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/1'),
+        'args': ('MYNTRA_DAILY',)
+    },
+    'schedule-reco-flipkart-date-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/10'),
+        'args': ('FLIPKART_DATE_ENTRY',)
+    },
+    'schedule-reco-myntra-date-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/10'),
+        'args': ('MYNTRA_DATE_ENTRY',)
     }
 }
 

@@ -748,6 +748,39 @@
       "delay_minuite":15
    },
    {
+      "marketplace":"Ajio",
+      "report_type":"dropship_payment_report",
+      "report_action":"D",
+      "report_status":"DD",
+      "request":0,
+      "status":0,
+      "download":1,
+      "concurrency":1,
+      "delay_minuite":15
+   },
+   {
+      "marketplace":"Ajio",
+      "report_type":"dropship_order_report",
+      "report_action":"D",
+      "report_status":"DD",
+      "request":0,
+      "status":0,
+      "download":1,
+      "concurrency":1,
+      "delay_minuite":15
+   },
+   {
+      "marketplace":"Ajio",
+      "report_type":"dropship_shipment_report",
+      "report_action":"D",
+      "report_status":"DD",
+      "request":0,
+      "status":0,
+      "download":1,
+      "concurrency":1,
+      "delay_minuite":15
+   },
+   {
       "marketplace":"Meesho",
       "report_type":"cancel_report",
       "report_action":"RSD",

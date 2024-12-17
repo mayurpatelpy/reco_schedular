@@ -83,6 +83,17 @@ class ScrapyScheduleManager:
                     ServiceLogger("scrapy_Engine").error(f"Error in Myntra Daily Date Entry {str(e)}", '--', "main.py",
                                                          "status_finder")
                 return None
+            elif self.event == TypeMaster.ajio:
+                try:
+                    marketplace_id = self.get_mpid("AJIO")
+                    MarketPlaceSchedular().make_daily_entry_clients(marketplace_id)
+                    ServiceLogger("scrapy_Engine").info(
+                        f"{self.event} Ajio Date Entries Call Dropped", '--', "main.py",
+                        "status_finder")
+                except Exception as e:
+                    ServiceLogger("scrapy_Engine").error(f"Error in Ajio Daily Date Entry {str(e)}", '--', "main.py",
+                                                         "status_finder")
+                return None
             elif self.event == TypeMaster.amazon_daily:
                 try:
                     marketplace_id = self.get_mpid("Amazon IN")
@@ -117,6 +128,17 @@ class ScrapyScheduleManager:
                     ServiceLogger("scrapy_Engine").error(f"Error in Myntra Daily Queue Created {str(e)}", '--', "main.py",
                                                         "status_finder")
                 return None
+            elif self.event == TypeMaster.ajio_daily:
+                try:
+                    marketplace_id = self.get_mpid("AJIO")
+                    MarketPlaceSchedular().daily_fetching(marketplace_id)
+                    ServiceLogger("scrapy_Engine").info(
+                        f"{self.event} Ajio Daily Fetching Dropped", '--', "main.py",
+                        "status_finder")
+                except Exception as e:
+                    ServiceLogger("scrapy_Engine").error(f"Error in Ajio Daily Queue Created {str(e)}", '--', "main.py",
+                                                        "status_finder")
+                return None
             elif self.event == TypeMaster.flipkart_date_entry:
                 try:
                     marketplace_id = self.get_mpid("Flipkart")
@@ -137,6 +159,18 @@ class ScrapyScheduleManager:
                         "status_finder")
                 except Exception as e:
                     ServiceLogger("scrapy_Engine").error(f"Error in Myntra Date entry dropped {str(e)}", '--',
+                                                         "main.py",
+                                                         "status_finder")
+                return None
+            elif self.event == TypeMaster.ajio_date_entry:
+                try:
+                    marketplace_id = self.get_mpid("AJIO")
+                    MarketPlaceSchedular().make_date_entries(marketplace_id)
+                    ServiceLogger("scrapy_Engine").info(
+                        f"{self.event} Ajio Date Entries Call Dropped", '--', "main.py",
+                        "status_finder")
+                except Exception as e:
+                    ServiceLogger("scrapy_Engine").error(f"Error in Ajio Date entry dropped {str(e)}", '--',
                                                          "main.py",
                                                          "status_finder")
                 return None
@@ -255,6 +289,9 @@ class TypeMaster:
     e_Retail_daily = "E_RETAIL_DAILY"
     flipkart_date_entry = "FLIPKART_DATE_ENTRY"
     myntra_date_entry = "MYNTRA_DATE_ENTRY"
+    ajio = "AJIO"
+    ajio_daily = "AJIO_DAILY"
+    ajio_date_entry = "AJIO_DATE_ENTRY"
 
 
 class TypeStatusMapping:

@@ -48,6 +48,11 @@ beat_schedule = {
         'schedule': crontab(minute=1, hour=00,day_of_month='2-31/2'),
         'args': ('MYNTRA',)
     },
+    'schedule-reco-ajio-daily-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute=1, hour=00),
+        'args': ('AJIO',)
+    },
     'schedule-reco-amazon-daily-entry-fetching': {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/5'),
@@ -63,6 +68,11 @@ beat_schedule = {
         'schedule': crontab(minute='*/1'),
         'args': ('MYNTRA_DAILY',)
     },
+    'schedule-reco-ajio-daily-entry-fetching': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/1'),
+        'args': ('AJIO_DAILY',)
+    },
     'schedule-reco-flipkart-date-entry': {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/10'),
@@ -72,6 +82,11 @@ beat_schedule = {
         'task': 'tasks.schedule_scrapy_worker',
         'schedule': crontab(minute='*/10'),
         'args': ('MYNTRA_DATE_ENTRY',)
+    },
+    'schedule-reco-ajio-date-entry': {
+        'task': 'tasks.schedule_scrapy_worker',
+        'schedule': crontab(minute='*/10'),
+        'args': ('AJIO_DATE_ENTRY',)
     }
 }
 

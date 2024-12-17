@@ -16,6 +16,7 @@ task_time_limit = 3600
 task_soft_time_limit = 3600
 result_backend_always_retry = True
 
+
 beat_schedule = {
     'schedule-reco-scrapy-download-every-3-minute': {
         'task': 'tasks.schedule_scrapy_worker',
@@ -34,17 +35,17 @@ beat_schedule = {
     },
     'schedule-reco-amazon-daily-entry': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute=31, hour=18),
+        'schedule': crontab(minute=1, hour=00),
         'args': ('AMAZON',)
     },
     'schedule-reco-flipkart-daily-entry': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute=31, hour=18,day_of_month='1-31/2'),
+        'schedule': crontab(minute=1, hour=00,day_of_month='1-31/2'),
         'args': ('FLIPKART',)
     },
     'schedule-reco-myntra-daily-entry': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute=31, hour=18,day_of_month='2-31/2'),
+        'schedule': crontab(minute=1, hour=00,day_of_month='2-31/2'),
         'args': ('MYNTRA',)
     },
     'schedule-reco-amazon-daily-entry-fetching': {

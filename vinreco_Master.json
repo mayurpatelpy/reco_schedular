@@ -836,6 +836,17 @@
       "delay_minuite":0
    },
    {
+      "marketplace":"Meesho",
+      "report_type":"get_supplier",
+      "report_action":"D",
+      "report_status":"DD",
+      "request":0,
+      "status":0,
+      "download":1,
+      "concurrency":1,
+      "delay_minuite":15
+   },
+   {
       "marketplace":"myntrab2b",
       "report_type":"payment_report",
       "report_action":"SD",

@@ -63,9 +63,8 @@ class DownloadScheduleManager:
                     # concurrency_flag = job_config[0].get('concurrency')
                     self.delay = job_config[0].get('delay_minuite')
                     report_details.update({"action": "Download"})
-                    running_status = self.report_running_status(report_details)
-                    # check_delay = self.check_delay(report_details)
-                    if report_details.get('report_type') == 'login' or self.get_login_validation(self.event):
+                    check_delay = self.check_delay(report_details)
+                    if (report_details.get('report_type') == 'login' or self.get_login_validation(self.event)) and check_delay :
                         message = json.dumps(report_details)
                         # print(message)
                         message_bytes = message.encode('ascii')
@@ -134,28 +133,21 @@ class DownloadScheduleManager:
                                                 "status_finder",stage="create_download_queue")
 
             last_request_time = self.get_last_request_time1(report)
-            last_request_comman = self.get_last_request_time2(report)
-            if last_request_time and last_request_comman:
-                if last_request_time == '':
-                    last_request_time = datetime.datetime.today()
-                # print('delay---->',delay)
-                delay = datetime.timedelta(minutes=delay)
-                delay_comman = datetime.timedelta(minutes=2)
-                to_make_request = last_request_time + delay
-                to_make_request_comman = last_request_time + delay_comman
-                current_datetime = datetime.datetime.today()
-                if current_datetime > to_make_request and current_datetime > to_make_request_comman:
-                    # print(report)
-                    return True
-                else:
-                    print(report)
-                    ServiceLogger("scrapy_Engine").info(
-                        f"you have to wait few minuites, please try again later\n\n{self.event}", '--', "main.py",
-                        "status_finder",stage="create_download_queue")
-
-                    return False
-            else:
+            if last_request_time == "":
+                last_request_time = datetime.datetime.now()
+            delay = datetime.timedelta(minutes=delay)
+            to_make_request = last_request_time + delay
+            current_datetime = datetime.datetime.today()
+            if current_datetime > to_make_request:
+                # print(report)
                 return True
+            else:
+                print(report)
+                ServiceLogger("scrapy_Engine").info(
+                    f"you have to wait few minuites, please try again later\n\n{self.event}", '--', "main.py",
+                    "status_finder",stage="create_download_queue")
+
+                return False
         except Exception as err:
             exception_message = str(err)
             exception_type, exception_object, exception_traceback = sys.exc_info()
@@ -170,14 +162,19 @@ class DownloadScheduleManager:
                                                  account_id=self.event.get("acid")
                                                  ,stage="create_download_queue")
 
-    def get_last_request_time1(self, report_details):
+    def get_last_request_time1(self, params):
         try:
-            ServiceLogger("scrapy_Engine").info(f"In get_last_request_time fun:-", '--', "main.py", "status_finder",stage="create_download_queue")
-            server_url = f"redis://{os.getenv('REDIS_CONNECTION')}:6379"
-            r = redis.from_url(server_url, decode_responses=True)
-            message = f"{report_details.get('cid')}_{report_details.get('mpid')}_{report_details.get('acid')}_{report_details.get('vendor')}_{report_details.get('report_type')}"
+            ServiceLogger("scrapy_Engine").info(f"In get_last_request_time fun:-", '--', "main.py", "status_finder")
+            REDIS_CONNECTION = f"redis://{os.getenv('REDIS_CONNECTION')}:6379"
+            client = redis.from_url(REDIS_CONNECTION, decode_responses=True)
+            if 'seller' in params.get('report_type'):
+                message = f"{params.get('acid')}_seller"
+            elif 'returns' in params.get('report_type') and params.get("mpid") == 200:
+                message = f"{params.get('acid')}_returns"
+            else:
+                message = f"{params.get('acid')}_{params.get('report_type')}"
             try:
-                value = json.loads(r.get(message))
+                value = json.loads(client.get(message))
             except:
                 value = {}
             last_request_time = value.get('request_time')
@@ -198,9 +195,7 @@ class DownloadScheduleManager:
                                                  marketplace_id=self.event.get("mpid"),
                                                  channel_id=self.event.get("mpid"),
                                                  account_id=self.event.get("acid")
-                                                 , stage="create_download_queue"
                                                  )
-
     def get_last_request_time2(self, report_details):
         try:
             ServiceLogger("scrapy_Engine").info(f"In get_last_request_time fun:-", '--', "main.py", "status_finder")

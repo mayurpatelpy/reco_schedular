@@ -1,9 +1,5 @@
 from dotenv import load_dotenv
-from dulwich.porcelain import status
-
 load_dotenv()
-
-import json
 from service_logger.service_logger import ServiceLogger
 import os, sys
 from reco_mongodb.mongodbops import MongoDBConnector, InsertOne
@@ -190,6 +186,32 @@ class MarketPlaceSchedular:
                         self.mongocurorDB.update_one("daily_pulling_logs",
                                                      {"_id":ObjectId(record.get('_id'))},
                                                      {"$set": {"status": 1,"lstupdttm":datetime.now()}})
+                    else:
+                        ServiceLogger("scrapy_Engine").error(
+                            f"Getting Error On Internal Service API {response.status_code}", '--',
+                            "marketplace_schedular.py", "schedular")
+                case 400:
+                    request = {
+                        "client_id": record.get('cid'),
+                        "account_id": record.get('acid'),
+                        "marketplace_id": record.get('mpid'),
+                        "call_type": "Login",
+                        "report_type": "login"
+                    }
+                    ServiceLogger("vinreco-marketplace-schedular").info(
+                        f"Invoking Ajio-Schedular having request-{request}")
+                    # response = client.invoke_async(
+                    #     FunctionName=LambdaFunctionName.flipkart_schedular,
+                    #     InvokeArgs=json.dumps(request).encode()
+                    # )
+                    response = call_internal_services(method="POST", endpoint="/v1/schedular/",
+                                                      body=request)
+                    if response.status_code == 200:
+                        ServiceLogger("scrapy_Engine").info(f"Schedular Call Dropped Successfully", '--',
+                                                            "marketplace_schedular.py", "schedular")
+                        self.mongocurorDB.update_one("daily_pulling_logs",
+                                                     {"_id": ObjectId(record.get('_id'))},
+                                                     {"$set": {"status": 1, "lstupdttm": datetime.now()}})
                     else:
                         ServiceLogger("scrapy_Engine").error(
                             f"Getting Error On Internal Service API {response.status_code}", '--',

@@ -41,6 +41,7 @@ class RequestScheduleManager:
                                                  )
 
     def create_job(self):
+        print("Inside Request job queue =====>")
         from tasks import scrapy_worker
         ServiceLogger("scrapy_Engine").info(f"In create_request_job func:", '--', "main.py", "status_finder", stage="create_status_queue")
         report_conf = self.report_configs()

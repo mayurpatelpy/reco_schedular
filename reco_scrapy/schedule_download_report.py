@@ -43,6 +43,7 @@ class DownloadScheduleManager:
     '''
 
     def create_job(self):
+        print("Inside Download job queue =====>")
         from tasks import scrapy_worker
         ServiceLogger("scrapy_Engine").info("In create_download_job Function: ", '--', "main.py", "create_download_job",stage="create_download_queue")
 

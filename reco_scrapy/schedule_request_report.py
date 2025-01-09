@@ -145,7 +145,8 @@ class RequestScheduleManager:
 
             last_request_time = self.get_last_request_time1(report)
             if last_request_time == "":
-                last_request_time = datetime.datetime.now()
+                self.set_report_delay(report)
+                return True
 
             delay = datetime.timedelta(minutes=delay)
             to_make_request = last_request_time + delay
@@ -171,6 +172,26 @@ class RequestScheduleManager:
                                                  channel_id=self.event.get("mpid"),
                                                  account_id=self.event.get("acid")
                                                  )
+
+    def set_report_delay(self,params):
+        try:
+            REDIS_CONNECTION = f"redis://{os.getenv('REDIS_CONNECTION')}:6379"
+            client = redis.from_url(REDIS_CONNECTION, decode_responses=True)
+            if 'seller' in params.get('report_type'):
+                message = f"{params.get('acid')}_seller"
+            elif 'returns' in params.get('report_type') and params.get("mpid") == 200:
+                message = f"{params.get('acid')}_returns"
+            else:
+                message = f"{params.get('acid')}_{params.get('report_type')}"
+            try:
+                data1 = json.loads(client.get(message))
+            except:
+                data1 = {}
+            data1.update({"request_time": datetime.now()})
+            data = json.dumps(data1, sort_keys=True, default=str)
+            client.set(message, data)
+        except:
+            pass
 
     def report_running_status(self, report_details):
         try:

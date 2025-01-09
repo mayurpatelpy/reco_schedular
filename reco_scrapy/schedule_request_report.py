@@ -113,7 +113,7 @@ class RequestScheduleManager:
                         continue
             # print(temp_list)
             self.db.close_connection()
-            yield {"status_code": 200, "message": f"Successfully Updated object id is "}
+            return {"status_code": 200, "message": f"Successfully Updated object id is "}
         else:
             self.db.close_connection()
             ServiceLogger("scrapy_Engine").info(f"NO Report with status QQ for this account{self.event}", '--',

@@ -20,17 +20,17 @@ result_backend_always_retry = True
 beat_schedule = {
     'schedule-reco-scrapy-download-every-3-minute': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute='*/5'),
+        'schedule': crontab(minute='*/3'),
         'args': ('DOWNLOAD',)
     },
     'schedule-reco-scrapy-status-every-5-minute': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute='*/8'),
+        'schedule': crontab(minute='*/5'),
         'args': ('STATUS',)
     },
     'schedule-reco-scrapy-requests-every-5-minute': {
         'task': 'tasks.schedule_scrapy_worker',
-        'schedule': crontab(minute='*/8'),
+        'schedule': crontab(minute='*/5'),
         'args': ('REQUEST',)
     },
     'schedule-reco-amazon-daily-entry': {

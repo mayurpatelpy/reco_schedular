@@ -657,7 +657,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -668,7 +668,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -679,7 +679,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -690,7 +690,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -701,7 +701,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -712,7 +712,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -723,7 +723,7 @@
       "status":1,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -734,7 +734,7 @@
       "status":0,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -745,7 +745,7 @@
       "status":0,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -756,7 +756,7 @@
       "status":0,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -767,7 +767,7 @@
       "status":0,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Ajio",
@@ -778,7 +778,7 @@
       "status":0,
       "download":1,
       "concurrency":1,
-      "delay_minuite":15
+      "delay_minuite":5
    },
    {
       "marketplace":"Meesho",

@@ -195,11 +195,12 @@ class ScrapyScheduleManager:
         if get_accounts.alive:
             account_ids = []
             for account in get_accounts:
+                print(f"account is ====> {account} ===> {status}")
                 create_job = lambda_function(event=account)
                 schedule_job = create_job.create_job()
                 if schedule_job:
                     ServiceLogger("scrapy_Engine").info(f"Job Was Schedule Successfully", '--', "main.py",
-                                                        "status_finder")
+                                                        "status_finder",account_id = account.get("acid"))
                     account_ids.append(account)
                 else:
                     ServiceLogger("scrapy_Engine").info(f"Job Was Not Scheduled", '--', "main.py",

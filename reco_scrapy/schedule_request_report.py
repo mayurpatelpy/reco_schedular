@@ -61,59 +61,58 @@ class RequestScheduleManager:
                         """concurrency_flag 0 means we can't run the same script at a time"""
                         ServiceLogger("scrapy_Engine").info(f"executing check_if_any_request_inprogress fun", '--',
                                                             "main.py", "status_finder", stage="create_status_queue")
-                        check_delay = self.check_delay(report)
-                        if check_delay and self.get_request_validation(report):
-                            queue_name = self.find_queue(report.get('mpid'))
-                            object_id = report.get('_id')
-                            report.update({"_id": str(object_id)})
-                            report.update({"action": "Request"})
-                            message = json.dumps(report)
-                            message_bytes = message.encode('ascii')
-                            base64_bytes = base64.b64encode(message_bytes)
-                            base64_message = base64_bytes.decode('ascii')
-                            ServiceLogger("scrapy_Engine").info(f"{report} sending request", '--', "main.py",
-                                                                "status_finder")
-                            scrapy_worker.apply_async(args=[base64_message], queue=queue_name)
-                            report_details_id_list.append(report.get('_id'))
-                            temp_list.append(report.get("report_type"))
-                            # print(done)
-                            self.db.update_one("master_messages", {'_id': object_id}, {"$set": {'toprocess': 1}})
-                            break
-                        else:
-                            temp_list.append(report.get("report_type"))
-                            ServiceLogger("scrapy_Engine").info(f"skiped this request:- \n\n{report}", '--',
-                                                                "main.py",
-                                                                "status_finder")
-                            continue
-                    else:
-                        check_delay = self.check_delay(report)
-                        if check_delay and self.get_login_validation(self.event):
-                            queue_name = self.find_queue(report.get('mpid'))
-                            object_id = report.get('_id')
-                            report.update({"_id": str(object_id)})
-                            report.update({"action": "Request"})
-                            message = json.dumps(report)
-                            message_bytes = message.encode('ascii')
-                            base64_bytes = base64.b64encode(message_bytes)
-                            base64_message = base64_bytes.decode('ascii')
-                            ServiceLogger("scrapy_Engine").info(f"{report} sending request", '--', "main.py",
-                                                                "status_finder")
+                    #     check_delay = self.check_delay(report)
+                    #     if check_delay and self.get_request_validation(report):
+                    #         queue_name = self.find_queue(report.get('mpid'))
+                    #         object_id = report.get('_id')
+                    #         report.update({"_id": str(object_id)})
+                    #         report.update({"action": "Request"})
+                    #         message = json.dumps(report)
+                    #         message_bytes = message.encode('ascii')
+                    #         base64_bytes = base64.b64encode(message_bytes)
+                    #         base64_message = base64_bytes.decode('ascii')
+                    #         ServiceLogger("scrapy_Engine").info(f"{report} sending request", '--', "main.py",
+                    #                                             "status_finder")
+                    #         scrapy_worker.apply_async(args=[base64_message], queue=queue_name)
+                    #         report_details_id_list.append(report.get('_id'))
+                    #         temp_list.append(report.get("report_type"))
+                    #         # print(done)
+                    #         self.db.update_one("master_messages", {'_id': object_id}, {"$set": {'toprocess': 1}})
+                    #         break
+                    #     else:
+                    #         temp_list.append(report.get("report_type"))
+                    #         ServiceLogger("scrapy_Engine").info(f"skiped this request:- \n\n{report}", '--',
+                    #                                             "main.py",
+                    #                                             "status_finder")
+                    #         continue
+                    # else:
+                    check_delay = self.check_delay(report)
+                    if check_delay and self.get_login_validation(self.event):
+                        queue_name = self.find_queue(report.get('mpid'))
+                        object_id = report.get('_id')
+                        report.update({"_id": str(object_id)})
+                        report.update({"action": "Request"})
+                        message = json.dumps(report)
+                        message_bytes = message.encode('ascii')
+                        base64_bytes = base64.b64encode(message_bytes)
+                        base64_message = base64_bytes.decode('ascii')
+                        ServiceLogger("scrapy_Engine").info(f"{report} sending request", '--', "main.py",
+                                                            "status_finder")
 
-                            scrapy_worker.apply_async(args=[base64_message], queue=queue_name)
-                            report_details_id_list.append(report.get('_id'))
-                            temp_list.append(report.get("report_type"))
-                            # print(done)
-                            self.db.update_one("master_messages", {'_id': object_id}, {"$set": {'toprocess': 1}})
-                            break
-                        else:
-                            temp_list.append(report.get("report_type"))
-                            ServiceLogger("scrapy_Engine").info(f"skiped this request:- \n\n{report}", '--',
-                                                                "main.py", "status_finder")
-                            continue
+                        scrapy_worker.apply_async(args=[base64_message], queue=queue_name)
+                        report_details_id_list.append(report.get('_id'))
+                        temp_list.append(report.get("report_type"))
+                        # print(done)
+                        self.db.update_one("master_messages", {'_id': object_id}, {"$set": {'toprocess': 1}})
+                        break
+                    else:
+                        temp_list.append(report.get("report_type"))
+                        ServiceLogger("scrapy_Engine").info(f"skiped this request:- \n\n{report}", '--',
+                                                            "main.py", "status_finder")
+                        continue
             # print(temp_list)
             self.db.close_connection()
-            return {"status_code": 200,
-                    "message": f"Successfully Updated object id is : {report_details_id_list}"}
+            yield {"status_code": 200, "message": f"Successfully Updated object id is "}
         else:
             self.db.close_connection()
             ServiceLogger("scrapy_Engine").info(f"NO Report with status QQ for this account{self.event}", '--',

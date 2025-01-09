@@ -39,16 +39,19 @@ class ScrapyScheduleManager:
             if self.event == TypeMaster.request:
                 status = TypeStatusMapping.request
                 lambda_function = RequestScheduleManager
+                self.scrapy_message_run(status,lambda_function)
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Request lambda function is invoked having status {status}", '--', "main.py", "status_finder")
 
             elif self.event == TypeMaster.status:
                 status = TypeStatusMapping.status
                 lambda_function = StatusScheduleManager
+                self.scrapy_message_run(status, lambda_function)
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Status lambda function is invoked having status {status}", '--', "main.py", "status_finder")
 
             elif self.event == TypeMaster.download:
                 status = TypeStatusMapping.download
                 lambda_function = DownloadScheduleManager
+                self.scrapy_message_run(status, lambda_function)
                 ServiceLogger("scrapy_Engine").info(f"{self.event} Download lambda function is invoked having status {status}", '--', "main.py", "status_finder")
             elif self.event == TypeMaster.amazon:
                 try:
@@ -176,23 +179,7 @@ class ScrapyScheduleManager:
                 return None
             else:
                 ServiceLogger("scrapy_Engine").info(f"{self.event} lambda function is not available", '--', "main.py", "status_finder")
-            get_accounts = self.get_accounts_by_status(status)
-            if get_accounts.alive:
-                account_ids = []
-                for account in get_accounts:
-                    create_job = lambda_function(event=account)
-                    schedule_job = create_job.create_job()
-                    if schedule_job:
-                        ServiceLogger("scrapy_Engine").info(f"Job Was Schedule Successfully", '--', "main.py", "status_finder")
-                        account_ids.append(account)
-                    else:
-                        ServiceLogger("scrapy_Engine").info(f"Job Was Not Scheduled", '--', "main.py",
-                                                            "status_finder")
-                self.db.close_connection()
-                return {"status_code": 200,"message":f"invoked the lambda function for the Account {account_ids}"}
-            else:
-                self.db.close_connection()
-                ServiceLogger("scrapy_Engine").info("There isn't any Active Account", '--', "main.py", "status_finder")
+
 
         except Exception as err:
             exception_message = str(err)
@@ -202,6 +189,26 @@ class ScrapyScheduleManager:
             ServiceLogger("scrapy_Engine").error(exception_message, class_name, filename, filename,
                                                  str(exception_traceback.tb_lineno), exception_message
                                                  )
+
+    def scrapy_message_run(self,status,lambda_function):
+        get_accounts = self.get_accounts_by_status(status)
+        if get_accounts.alive:
+            account_ids = []
+            for account in get_accounts:
+                create_job = lambda_function(event=account)
+                schedule_job = create_job.create_job()
+                if schedule_job:
+                    ServiceLogger("scrapy_Engine").info(f"Job Was Schedule Successfully", '--', "main.py",
+                                                        "status_finder")
+                    account_ids.append(account)
+                else:
+                    ServiceLogger("scrapy_Engine").info(f"Job Was Not Scheduled", '--', "main.py",
+                                                        "status_finder")
+            self.db.close_connection()
+            return {"status_code": 200, "message": f"invoked the lambda function for the Account {account_ids}"}
+        else:
+            self.db.close_connection()
+            ServiceLogger("scrapy_Engine").info("There isn't any Active Account", '--', "main.py", "status_finder")
 
     def get_accounts_by_status(self, status):
         ServiceLogger("scrapy_Engine").info(f"Get Accounts by status function", '--', "main.py", "status_finder")

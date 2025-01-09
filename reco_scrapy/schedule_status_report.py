@@ -80,7 +80,7 @@ class StatusScheduleManager:
                         else:
                             ServiceLogger("schedule-status-job").info(f'No Report Type Found for account id {self.event.get("acid")} , channel id {self.event.get("mpid")}', stage="create_status_queue")
                 self.db.close_connection()
-                return {'status_code':200,'message':f'successfully updated object_id is:{report_details_id_list}'}
+                yield {"status_code": 200, "message": f"Successfully Updated object id is "}
             else:
                 self.db.close_connection()
                 ServiceLogger("schedule-status-job").info(

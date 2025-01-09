@@ -83,7 +83,7 @@ class DownloadScheduleManager:
                             f'This report {report_details} already in progress', '--',
                             "main.py", "create_download_job",stage="create_download_queue")
                 self.db.close_connection()
-                return {"status_code": 200, "message": f"Successfully Updated object id is : {report_details_id_list}"}
+                yield {"status_code": 200, "message": f"Successfully Updated object id is : {report_details_id_list}"}
             else:
                 self.db.close_connection()
                 ServiceLogger("scrapy_Engine").info(

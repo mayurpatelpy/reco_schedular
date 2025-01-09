@@ -63,9 +63,11 @@ class DownloadScheduleManager:
                     ServiceLogger("scrapy_engine").info(f"Found Job config is ===> {job_config[0]}")
                     # concurrency_flag = job_config[0].get('concurrency')
                     self.delay = job_config[0].get('delay_minuite')
+                    report_action = job_config[0].get('report_action')
                     report_details.update({"action": "Download"})
+                    # if report_action != "RSD":
                     check_delay = self.check_delay(report_details)
-                    if (report_details.get('report_type') == 'login' or self.get_login_validation(self.event)) and check_delay :
+                    if ((report_details.get('report_type') == 'login' or self.get_login_validation(self.event)) and check_delay) or report_action == "RSD":
                         message = json.dumps(report_details)
                         # print(message)
                         message_bytes = message.encode('ascii')
